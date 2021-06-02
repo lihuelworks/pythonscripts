@@ -7,6 +7,12 @@ import shutil
 import random
 from fuzzywuzzy import fuzz, process
 
+def openImage(path):
+    imageViewerFromCommandLine = {'linux':'xdg-open',
+                                  'win32':'explorer',
+                                  'darwin':'open'}[sys.platform]
+    subprocess.run([imageViewerFromCommandLine, path])
+
 # PureRef LOCATION
 user_path = os.environ['USERPROFILE']
 
@@ -30,17 +36,17 @@ for root, dirs, files in os.walk(basedir):
 
 # print 20 random images
 files_chosen = random.sample(files_list, int(image_quantity))
- 
 print("file LIST 📃 ", files_chosen)  # prints the random filename
 #image_var = files_chosen[0]
-print("type of FILES_CHOSEN OUTSIDE LOOP:", type(files_chosen))
+print("type of FILES_CHOSEN OUTSIDE LOOP:",type(files_chosen))
 for item in files_chosen:
-    print("type of FILES_CHOSEN IIIIINSIDE LOOP:", type(files_chosen))
-    item = "\"" + item + "\""
-    print("grabbing img...", item)
-    #command = 'Start-Process'+' '+item
-    #print("command!!💻", command)
-    subprocess.run(os.system(item))
+    print("type of FILES_CHOSEN IIIIINSIDE LOOP:",type(files_chosen))
+    #item = "\"" + item + "\""
+    print("grabbing img...",item)
+    """ command = 'i_view64.exe '+item
+    print("command!!💻", command) """
+    #subprocess.Popen(item)
+    openImage(item)
 
 print("finished!💥")
 raise SystemExit
